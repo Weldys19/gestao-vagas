@@ -5,6 +5,8 @@ import com.br.weldyscarmo.gestao_vagas.modules.company.repositories.JobRepositor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class CreateJobUseCase {
 
