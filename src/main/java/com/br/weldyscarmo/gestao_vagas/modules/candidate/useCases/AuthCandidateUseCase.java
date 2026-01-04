@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 @Service
@@ -26,7 +25,7 @@ public class AuthCandidateUseCase {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Value("${security.token.secret.cadidate}")
+    @Value("${security.token.secret.candidate}")
     private String secret;
 
     public AuthCandidateResponseDTO execute(AuthCandidateDTO authCandidateDTO){
