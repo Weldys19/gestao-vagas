@@ -27,7 +27,6 @@ public class SecurityFilterCandidate extends OncePerRequestFilter {
     HttpServletResponse response,
     FilterChain filterChain)
             throws ServletException, IOException {
-        SecurityContextHolder.getContext().setAuthentication(null);
         var header = request.getHeader("Authorization");
 
         if (request.getRequestURI().startsWith("/candidate")) {
@@ -38,7 +37,15 @@ public class SecurityFilterCandidate extends OncePerRequestFilter {
                     return;
                 }
                 request.setAttribute("candidate_id", tokenDecoded.getSubject());
-                System.out.println(tokenDecoded);
+                var roles = tokenDecoded.getClaim("roles").asList(Object.class);
+
+                var grants = roles.stream()
+                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role.toString().toUpperCase()))
+                        .toList();
+
+                UsernamePasswordAuthenticationToken auth =
+                        new UsernamePasswordAuthenticationToken(tokenDecoded.getSubject(), null, grants);
+                SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }
 
