@@ -1,6 +1,5 @@
 package com.br.weldyscarmo.gestao_vagas.modules.candidate.controllers;
 
-import com.br.weldyscarmo.gestao_vagas.modules.candidate.CandidateRepository;
 import com.br.weldyscarmo.gestao_vagas.modules.candidate.dto.AuthCandidateDTO;
 import com.br.weldyscarmo.gestao_vagas.modules.candidate.useCases.AuthCandidateUseCase;
 import org.springframework.beans.factory.annotation.Autowired;

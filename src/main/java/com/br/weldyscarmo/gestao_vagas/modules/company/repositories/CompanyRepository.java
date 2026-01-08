@@ -1,6 +1,5 @@
 package com.br.weldyscarmo.gestao_vagas.modules.company.repositories;
 
-import com.br.weldyscarmo.gestao_vagas.modules.candidate.CandidateEntity;
 import com.br.weldyscarmo.gestao_vagas.modules.company.entities.CompanyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
