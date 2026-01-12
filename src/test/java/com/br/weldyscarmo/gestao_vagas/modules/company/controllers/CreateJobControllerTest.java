@@ -1,5 +1,7 @@
 package com.br.weldyscarmo.gestao_vagas.modules.company.controllers;
 
+import com.br.weldyscarmo.gestao_vagas.exceptions.CompanyNotFoundException;
+import com.br.weldyscarmo.gestao_vagas.exceptions.UserNotFoundException;
 import com.br.weldyscarmo.gestao_vagas.modules.company.dto.CreateJobDTO;
 import com.br.weldyscarmo.gestao_vagas.modules.company.entities.CompanyEntity;
 import com.br.weldyscarmo.gestao_vagas.modules.company.repositories.CompanyRepository;
@@ -20,7 +22,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import tools.jackson.databind.ObjectMapper;
 
+
 import java.util.UUID;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -71,4 +76,19 @@ public class CreateJobControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    @Test
+    public void shouldNotBeAbleToCreateAJob() throws Exception {
+        var createdJobDTO = CreateJobDTO.builder()
+                .description("Description")
+                .level("Junior")
+                .benefits("Benefits")
+                .build();
+
+        mvc.perform(MockMvcRequestBuilders.post("/company/job/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(createdJobDTO))
+                .header("Authorization", "Bearer " + TestUtils.generatedToken(UUID.randomUUID())))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+
+    }
 }
